@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\View;
+use Src\View;
 
 class PostController {
     public function index(): void {

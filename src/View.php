@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Src;
 
 class View {
     public static function render(string $view, $model) {

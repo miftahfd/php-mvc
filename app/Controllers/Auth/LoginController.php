@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Auth;
 
-use App\View;
+use Src\View;
 
 class LoginController {
     public function index(): void {
