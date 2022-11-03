@@ -19,6 +19,15 @@ class Route {
         ];
     }
 
+    private static function getRouteParams($route_path) {
+        $pattern_replace = "/{([\w\s]+)}/";
+        $route_path = preg_replace($pattern_replace, "([0-9a-zA-z]*)", $route_path);
+
+        $pattern = rtrim('#^' . $route_path . '$#', '/');
+
+        return $pattern;
+    }
+
     public static function get(string $path, string $controller, string $function, array $middlewares = []): void {
         self::mapping('GET', $path, $controller, $function, $middlewares);
     }
@@ -44,7 +53,8 @@ class Route {
         $method = $_SERVER['REQUEST_METHOD'];
 
         foreach(self::$routes as $route) {
-            $pattern = rtrim('#^' . $route['path'] . '$#', '/');
+            $pattern = self::getRouteParams($route['path']);
+            
             if(preg_match($pattern, $path, $variables)) {
                 if($route['method'] != $method) {
                     http_response_code(405);
